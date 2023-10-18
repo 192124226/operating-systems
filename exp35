@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_FILE_BLOCKS 100
+#define MAX_INDEX_BLOCKS 10
+
+// Define a structure for the index block
+struct IndexBlock {
+    int blockPointers[MAX_FILE_BLOCKS];
+};
+
+// Define a structure for a file
+struct File {
+    int fileSize;
+    struct IndexBlock indexBlock;
+};
+
+// Function to initialize a file
+void initFile(struct File* file) {
+    file->fileSize = 0;
+    for (int i = 0; i < MAX_FILE_BLOCKS; i++) {
+        file->indexBlock.blockPointers[i] = -1; // Initialize to -1 to indicate no allocation
+    }
+}
+
+// Function to allocate a block for a file
+int allocateBlock(struct File* file, int data) {
+    if (file->fileSize < MAX_FILE_BLOCKS) {
+        int blockIndex = file->fileSize;
+        file->indexBlock.blockPointers[blockIndex] = data;
+        file->fileSize++;
+        return blockIndex;
+    } else {
+        printf("File is already full, cannot allocate more blocks.\n");
+        return -1;
+    }
+}
+
+// Function to print the contents of a file
+void printFile(struct File* file) {
+    printf("File contents: ");
+    for (int i = 0; i < file->fileSize; i++) {
+        printf("%d -> ", file->indexBlock.blockPointers[i]);
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct File file;
+    initFile(&file);
+
+    int block1 = allocateBlock(&file, 10);
+    int block2 = allocateBlock(&file, 20);
+    int block3 = allocateBlock(&file, 30);
+
+    printf("Allocated blocks: %d, %d, %d\n", block1, block2, block3);
+    printFile(&file);
+
+    return 0;
+}
+---------------------op---------------
+Allocated blocks: 0, 1, 2
+File contents: 10 -> 20 -> 30 -> NULL
