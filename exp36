@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_BLOCKS 100
+
+// Define a block structure
+struct Block {
+    int data;
+    struct Block* next;
+};
+
+// Define a file structure
+struct File {
+    struct Block* firstBlock;
+    struct Block* lastBlock;
+};
+
+// Function to allocate a new block and add it to the end of the file
+void allocateBlock(struct File* file, int data) {
+    struct Block* newBlock = (struct Block*)malloc(sizeof(struct Block));
+    newBlock->data = data;
+    newBlock->next = NULL;
+
+    if (file->lastBlock == NULL) {
+        // The file is empty, set the first block
+        file->firstBlock = newBlock;
+        file->lastBlock = newBlock;
+    } else {
+        // Add the new block to the end of the file
+        file->lastBlock->next = newBlock;
+        file->lastBlock = newBlock;
+    }
+}
+
+// Function to deallocate all blocks of a file
+void deallocateFile(struct File* file) {
+    struct Block* current = file->firstBlock;
+    while (current != NULL) {
+        struct Block* temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    file->firstBlock = NULL;
+    file->lastBlock = NULL;
+}
+
+// Function to print the contents of a file
+void printFile(struct File* file) {
+    struct Block* current = file->firstBlock;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct File file;
+    file.firstBlock = NULL;
+    file.lastBlock = NULL;
+
+    // Allocate blocks for the file
+    allocateBlock(&file, 10);
+    allocateBlock(&file, 20);
+    allocateBlock(&file, 30);
+
+    printf("File contents: ");
+    printFile(&file);
+
+    // Deallocate the file
+    deallocateFile(&file);
+
+    printf("File contents after deallocation: ");
+    printFile(&file);
+
+    return 0;
+}
+---------------op---------------
+File contents: 10 -> 20 -> 30 -> NULL
+File contents after deallocation: NULL
