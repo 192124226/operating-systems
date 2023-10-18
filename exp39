@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_REQUESTS 100
+#define MAX_CYLINDERS 200
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+void cScan(int requestQueue[], int n, int head) {
+    int seekTime = 0;
+    int currentIndex = 0;
+    int* sortedRequests = (int*)malloc(n * sizeof(int));
+
+    if (sortedRequests == NULL) {
+        printf("Memory allocation error!\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < n; i++) {
+        sortedRequests[i] = requestQueue[i];
+    }
+
+    // Sort the request queue
+    bubbleSort(sortedRequests, n);
+    for (int i = 0; i < n; i++) {
+        if (sortedRequests[i] >= head) {
+            currentIndex = i;
+            break;
+        }
+    }
+
+    printf("C-SCAN Order: ");
+
+    // Go right first
+    for (int i = currentIndex; i < n; i++) {
+        printf("%d ", sortedRequests[i]);
+        seekTime += abs(head - sortedRequests[i]);
+        head = sortedRequests[i];
+    }
+
+    // Go to the end
+    seekTime += abs(head - MAX_CYLINDERS);
+    head = MAX_CYLINDERS;
+
+    // Go back to the beginning
+    for (int i = 0; i < currentIndex; i++) {
+        printf("%d ", sortedRequests[i]);
+        seekTime += abs(head - sortedRequests[i]);
+        head = sortedRequests[i];
+    }
+
+    printf("\nTotal Seek Time: %d\n", seekTime);
+
+    free(sortedRequests);
+}
+
+int main() {
+    int requestQueue[MAX_REQUESTS];
+    int n, head;
+
+    printf("Enter the number of requests: ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > MAX_REQUESTS) {
+        printf("Invalid number of requests.\n");
+        return 1;
+    }
+
+    printf("Enter the current position of the disk arm: ");
+    scanf("%d", &head);
+
+    if (head < 0 || head > MAX_CYLINDERS) {
+        printf("Invalid disk arm position.\n");
+        return 1;
+    }
+
+    printf("Enter the disk queue requests:\n");
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &requestQueue[i]);
+        if (requestQueue[i] < 0 || requestQueue[i] > MAX_CYLINDERS) {
+            printf("Invalid request.\n");
+            return 1;
+        }
+    }
+
+    cScan(requestQueue, n, head);
+
+    return 0;
+}
+----------------------------------------------------o/p
+Enter the number of requests: 4
+Enter the current position of the disk arm: 32
+Enter the disk queue requests:
+33
+24
+56
+78
+C-SCAN Order: 33 56 78 24
+Total Seek Time: 344
