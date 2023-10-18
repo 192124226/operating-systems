@@ -1,0 +1,44 @@
+QS. Construct a C program to simulate the First Come First Served disk scheduling algorithm. 
+#include <stdio.h>
+
+#define MAX_REQUESTS 100
+
+// Function to simulate FCFS disk scheduling
+void fcfs(int requestQueue[], int n, int head) {
+    int seekTime = 0;
+
+    printf("FCFS Order: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", requestQueue[i]);
+        seekTime += abs(head - requestQueue[i]);
+        head = requestQueue[i];
+    }
+
+    printf("\nTotal Seek Time: %d\n", seekTime);
+}
+
+int main() {
+    int requestQueue[MAX_REQUESTS];
+    int n, head;
+
+    printf("Enter the number of requests: ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > MAX_REQUESTS) {
+        printf("Invalid number of requests.\n");
+        return 1;
+    }
+
+    printf("Enter the current position of the disk arm: ");
+    scanf("%d", &head);
+
+    printf("Enter the disk queue requests:\n");
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &requestQueue[i]);
+    }
+
+    fcfs(requestQueue, n, head);
+
+    return 0;
+}
