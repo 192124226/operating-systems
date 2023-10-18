@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_FILE_SIZE 100
+
+// Define a structure for a file
+struct ContiguousFile {
+    char data[MAX_FILE_SIZE];
+    int currentRecord;
+};
+
+// Function to initialize a file
+void initFile(struct ContiguousFile* file) {
+    memset(file->data, 0, sizeof(file->data));
+    file->currentRecord = 0;
+}
+
+// Function to write a record to the file
+int writeRecord(struct ContiguousFile* file, const char* record) {
+    if (file->currentRecord + strlen(record) >= MAX_FILE_SIZE) {
+        printf("File is full, cannot write more records.\n");
+        return -1;
+    }
+
+    strcpy(file->data + file->currentRecord, record);
+    file->currentRecord += strlen(record);
+
+    return 0;
+}
+
+// Function to read a record from the file
+void readRecord(struct ContiguousFile* file, int recordIndex) {
+    if (recordIndex < 0 || recordIndex >= file->currentRecord) {
+        printf("Invalid record index.\n");
+    } else {
+        printf("Record %d: %.*s\n", recordIndex, (int)strlen(file->data + recordIndex), file->data + recordIndex);
+    }
+}
+
+int main() {
+    struct ContiguousFile file;
+    initFile(&file);
+
+    writeRecord(&file, "Record 1 - This is the first record.");
+    writeRecord(&file, "Record 2 - This is the second record.");
+    writeRecord(&file, "Record 3 - This is the third record.");
+
+    printf("Contents of the file:\n");
+    printf("%s\n", file.data);
+
+    printf("Reading records:\n");
+    readRecord(&file, 0);
+    readRecord(&file, 14);
+    readRecord(&file, 35);
+
+    return 0;
+}
+-------------------------op--------------
+File is full, cannot write more records.
+Contents of the file:
+Record 1 - This is the first record.Record 2 - This is the second record.
+Reading records:
+Record 0: Record 1 - This is the first record.Record 2 - This is the second record.
+Record 14: s is the first record.Record 2 - This is the second record.
+Record 35: .Record 2 - This is the second record.
