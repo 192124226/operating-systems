@@ -1,0 +1,258 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+
+int main(int argc, char *argv[]) {
+    const char *dir_path = (argc > 1) ? argv[1] : ".";  // Use the provided directory path, or use the current directory by default
+    DIR *dir = opendir(dir_path);
+
+    if (dir == NULL) {
+        perror("opendir");
+        return 1;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
+            printf("%s\n", entry->d_name);
+        }
+    }
+
+    closedir(dir);
+    return 0;
+}
+-------------op------------------
+++ i operator.cpp
+++ i operator.exe
++76.cpp
++76.exe
+.RData
+.Rhistory
+09.cpp
+09.exe
+11.cpp
+11.exe
+2 no.s adding with pointer.cpp
+2 no.s adding with pointer.exe
+5687.cpp
+5687.exe
+65651656465654.cpp
+65651656465654.exe
+789.cpp
+789.exe
+90.cpp
+90.exe
+=.cpp
+=.exe
+add.r
+adult.cpp
+ages.cpp
+agr.cpp
+agr.exe
+ANIMALS CELL .jpg
+Assessment on COCA.docx
+b to dec.cpp
+b to dec.exe
+binary search.cpp
+binary search.exe
+binary to decimal.cpp
+binary to decimal.exe
+c.cpp
+c.exe
+ci and area of circle.cpp
+ci and area of circle.exe
+cir.cpp
+cir.exe
+coca cola.sav
+control and coordination .pdf
+Custom Office Templates
+datafr.csv
+days switch case.cpp
+days switch case.exe
+decimal to octal.cpp
+decimal to octet.cpp
+desktop.ini
+do not know.cpp
+DOC-20220826-WA0005..pdf
+enter the age if else slse if.cpp
+enter the age if else slse if.exe
+even odd.cpp
+even odd.exe
+ex1.cpp
+ex1.exe
+ex22os.cpp
+ex22os.exe
+exp2.cd.cpp
+exp2.cd.exe
+exper1.cd.cpp
+exper1.cd.exe
+exper10.cpp
+exper10.exe
+exper11.cpp
+exper11.exe
+exper12.c
+exper12.cpp
+exper12.exe
+exper13.cpp
+exper13.exe
+exper14.cpp
+exper14.exe
+exper15.c
+exper15.cpp
+exper15.exe
+exper16.c
+exper16.cpp
+exper16.exe
+exper17.cpp
+exper18.c
+exper18.cpp
+exper18.exe
+exper19.cpp
+exper19.exe
+exper20.c
+exper20.cpp
+exper20.exe
+exper3.c
+exper3.exe
+exper3.txt
+exper5.cpp
+exper5.exe
+exper6.cpp
+exper6.exe
+exper7.cpp
+exper7.exe
+exper9.cpp
+exper9.exe
+experi6.cpp
+experi6.exe
+fact.cpp
+fact.exe
+factrial.cpp
+factrial.exe
+fcfs disk.cpp
+fibonacci series.cpp
+fibonacci series.exe
+file allo phy logi.cpp
+file allo phy logi.exe
+file allocation ith.cpp
+file allocation ith.exe
+file allocation.cpp
+file allocation.exe
+float increment.cpp
+float increment.exe
+half bubble sort.cpp
+hello world.txt
+i-- decrement operator.cpp
+i-- decrement operator.exe
+KRANTHI.pptx
+leap.cpp
+leap.exe
+linearRegGFG.png
+LogRegGFG.png
+lucky no.cpp
+m and n.cpp
+m and n.exe
+multipleRegGFG.png
+night.cpp
+night.exe
+Norway foam.docx
+odd and even.cpp
+odd and even.exe
+op.cpp
+op.exe
+out.txt
+p2 fibo.cpp
+p2 pattern.cpp
+p2 pattern.exe
+PLANT CELL.jpg
+po.cpp
+po.exe
+Python Scripts
+qu.cpp
+qua.cpp
+radius of cir.cpp
+radius of cir.exe
+rAptopr.rap
+recent.docx
+recur.cpp
+recur.exe
+reverse the text using build in function.cpp
+reverse.cpp
+rows.cpp
+rows.exe
+rv.cpp
+rv.exe
+scan os.cpp
+scan os.exe
+scan.cpp
+scan.exe
+SHEETAL      KRANTHI.docx
+sheetal.cpp
+sheetal.exe
+simple interest.cpp
+simple interest.exe
+string.cpp
+string.exe
+sum of digits.cpp
+sum of digits.exe
+swicth case with char.cpp
+swicth case with char.exe
+sy.cpp
+sy.exe
+table.cpp
+table.exe
+THE FUNDAMENTAL UNIT OF LIFE.pptx
+unix command.cpp
+unix command.exe
+Untitled1.cpp
+Untitled1.exe
+Untitled12.cpp
+Untitled14.cpp
+Untitled15.cpp
+Untitled1l.cpp
+Untitled1l.exe
+Untitled1M.cpp
+Untitled1M.exe
+Untitled2.c
+Untitled2.cpp
+Untitled2.exe
+Untitled22.cpp
+Untitled22.exe
+Untitled23.cpp
+Untitled23.exe
+Untitled25.cpp
+Untitled25.exe
+Untitled26.cpp
+Untitled26.exe
+Untitled2m,.cpp
+Untitled2m,.exe
+Untitled3.c
+Untitled3.cd.cpp
+Untitled3.cd.exe
+Untitled3.cdd.cpp
+Untitled3.cpp
+Untitled3.exe
+Untitled4.cd.cpp
+Untitled4.cd.exe
+Untitled4.cpp
+Untitled4.exe
+Untitled5.cpp
+Untitled5.exe
+Untitled6.cpp
+Untitled6.exe
+Untitled7.cpp
+Untitled9.cpp
+voting.cpp
+voting.exe
+vowels.cpp
+WhatsApp Image 2023-05-23 at 11.08.28.jpg
+WhatsApp Image 2023-05-23 at 11.56.53.jpg
+WhatsApp Image 2023-06-06 at 13.56.39.jpg
+WhatsApp Image 2023-06-21 at 21.17.36.jpg
+WhatsApp Image 2023-06-21 at 21.17.37.jpg
+while loop ennter the number.cpp
+while loop ennter the number.exe
+X-3-Metals and non-metals.pdf
+
+--------------------------------
