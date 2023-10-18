@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+#define MAX_MEMORY_SIZE 100
+
+// Structure to represent a memory block
+struct MemoryBlock {
+    int start;
+    int size;
+    int isAllocated;
+};
+
+// Function to initialize a memory block
+void initMemoryBlock(struct MemoryBlock* block, int start, int size) {
+    block->start = start;
+    block->size = size;
+    block->isAllocated = 0;
+}
+
+// Function to allocate memory using the first-fit algorithm
+int firstFit(struct MemoryBlock memory[], int numBlocks, int requestSize) {
+    for (int i = 0; i < numBlocks; i++) {
+        if (!memory[i].isAllocated && memory[i].size >= requestSize) {
+            memory[i].isAllocated = 1;
+            return memory[i].start;
+        }
+    }
+    return -1; // Memory allocation failed
+}
+
+// Function to print the memory allocation status
+void printMemoryStatus(struct MemoryBlock memory[], int numBlocks) {
+    printf("Memory Allocation Status:\n");
+    for (int i = 0; i < numBlocks; i++) {
+        printf("Block %d: Start = %d, Size = %d, Allocated = %s\n",
+               i, memory[i].start, memory[i].size,
+               (memory[i].isAllocated ? "Yes" : "No"));
+    }
+}
+
+int main() {
+    struct MemoryBlock memory[MAX_MEMORY_SIZE];
+    int numBlocks;
+    int requestSize;
+
+    printf("Enter the number of memory blocks: ");
+    scanf("%d", &numBlocks);
+
+    for (int i = 0; i < numBlocks; i++) {
+        int start, size;
+        printf("Enter the starting address and size of block %d: ", i);
+        scanf("%d %d", &start, &size);
+        initMemoryBlock(&memory[i], start, size);
+    }
+
+    printf("Enter the size of memory to allocate: ");
+    scanf("%d", &requestSize);
+
+    int allocationResult = firstFit(memory, numBlocks, requestSize);
+
+    if (allocationResult != -1) {
+        printf("Memory allocated at address %d.\n", allocationResult);
+    } else {
+        printf("Memory allocation failed. No suitable block found.\n");
+    }
+
+    printMemoryStatus(memory, numBlocks);
+
+    return 0;
